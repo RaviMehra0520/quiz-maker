@@ -39,7 +39,7 @@ export interface QuizContextType {
   questions: QuestionProps[] | null;
   quizSubmitted: boolean;
   submitQuiz: () => void;
-  update: (quiz: QuestionProps[]) => void;
+  update: (quiz: QuestionProps[] | null) => void;
   clear: () => void;
 }
 

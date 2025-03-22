@@ -9,7 +9,7 @@ interface AuthProviderProps {
 const QuizProvider = ({ children }: AuthProviderProps) => {
     const [quiz, setQuiz] = useState<QuestionProps[] | null>(null);
     const [quizSubmitted, setQuizSubmitted] = useState(false);
-    const update = (quiz: QuestionProps[]) => setQuiz(quiz);
+    const update = (quiz: QuestionProps[] | null) => setQuiz(quiz);
     const submitQuiz = () => setQuizSubmitted(true);
     const clear = () => {
         setQuizSubmitted(false);

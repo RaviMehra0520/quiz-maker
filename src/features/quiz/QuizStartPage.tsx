@@ -15,6 +15,7 @@ const QuizPage: React.FC = () => {
   const [categoryInputValue, setCategoryInputValue] = useState('');
   const [difficultyInputValue, setDifficultyInputValue] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [isCreatedQuiz, setIsCreatedQuiz] = useState(false);
 
   useEffect(() => {
     if (categoryInputValue !== '' && difficultyInputValue !== '') {
@@ -46,6 +47,7 @@ const QuizPage: React.FC = () => {
   };
 
   const handleCreateQuiz = async () => {
+
     const paramObj = {
       amount: 5,
       category: categoryInputValue,
@@ -53,7 +55,12 @@ const QuizPage: React.FC = () => {
       type: 'multiple',
     };
     const response = await fetchQuizByCatory(paramObj);
-    update(response);
+    if (response.length === 0) {
+      update(null);
+    } else {
+      update(response);
+    }
+    setIsCreatedQuiz(true);
   };
 
   return (
@@ -85,7 +92,8 @@ const QuizPage: React.FC = () => {
           />
         )}
       </div>
-      {questions && <QuizTest />}
+      {(isCreatedQuiz && questions && questions.length) && <QuizTest />}
+      {(!questions && isCreatedQuiz) && <span id='noDataFound'>No data found...</span>}
     </div>
   );
 };
